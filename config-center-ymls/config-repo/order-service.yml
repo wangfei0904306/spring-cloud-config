@@ -1,0 +1,56 @@
+###################  spring配置  ###################
+# 默认的profile为local，其他环境通过指定启动参数使用不同的profile，比如：
+#   测试环境：java -jar my-spring-boot.jar --spring.profiles.active=test
+#   生产环境：java -jar my-spring-boot.jar --spring.profiles.active=prod
+spring:
+  application:
+    name: order-service
+  profiles:
+    active: local
+
+config:
+  center:
+    test: this is the test of config center 1111.
+    
+#访问服务注册中心管理页面需要加密码
+register-visite-name: eureka
+register-visite-passwd: 123321
+    
+#各微服务相关数据配置
+cservice:
+  nodeMap:
+    service-name-auth: auth-service
+    service-name-data: data-service
+    service-name-order: order-service
+    service-name-inv: inv-service
+    service-name-report: report-service
+    service-name-scheduler: scheduler-service
+    service-name-log: log-service
+
+#服务间调用超时配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000   #hystix的连接超时时间 5秒
+
+###################  roses配置  ###################
+roses:
+  message-max-send-times: 5 #消息最大发送次数限制
+
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:com/iciyun/adi/microframe/order/**/xml/*.xml
+  typeAliasesPackage: com.iciyun.adi.microframe.order.persistence.entity
+  global-config:
+    id-type: 3  #1:数据库ID自增   2:用户输入id   3:全局唯一id(IdWorker)   4:全局唯一ID(uuid)
+    db-column-underline: false
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用

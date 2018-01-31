@@ -1,0 +1,48 @@
+###################  spring配置  ###################
+# 默认的profile为local，其他环境通过指定启动参数使用不同的profile，比如：
+#   测试环境：java -jar my-spring-boot.jar --spring.profiles.active=test
+#   生产环境：java -jar my-spring-boot.jar --spring.profiles.active=prod
+
+spring:
+  application:
+    name: @service-name-inv@
+  profiles:
+      active: local
+      
+#访问服务注册中心管理页面需要加密码
+register-visite-name: @register-visite-name@
+register-visite-passwd: @register-visite-passwd@
+      
+#各微服务相关数据配置
+cservice:
+  nodeMap:
+    service-name-auth: @service-name-auth@
+    service-name-data: @service-name-data@
+    service-name-order: @service-name-order@
+    service-name-inv: @service-name-inv@
+    service-name-report: @service-name-report@
+    service-name-scheduler: @service-name-scheduler@
+    service-name-log: @service-name-log@
+
+#服务间调用超时配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000   #hystix的连接超时时间 5秒
+
+mybatis-plus:
+  mapper-locations: classpath*:com/iciyun/adi/microframe/inv/**/xml/*.xml
+  typeAliasesPackage: com.iciyun.adi.microframe.inv.persistence.entity
+  global-config:
+    id-type: 3  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    db-column-underline: true
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用

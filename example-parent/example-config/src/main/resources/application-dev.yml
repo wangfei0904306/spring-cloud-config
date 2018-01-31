@@ -1,0 +1,23 @@
+spring:
+  redis:
+    host: 192.168.14.97
+    port: 6379
+    password:
+  rabbitmq:
+    addresses: 192.168.14.97
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${register-visite-name}:${register-visite-passwd}@192.168.14.97:10001/eureka/
+
+logging:
+  level:
+    root: INFO
+    com.iciyun: INFO
+  file: /var/data/log/cibei-config.log

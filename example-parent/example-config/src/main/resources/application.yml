@@ -1,0 +1,25 @@
+server:
+  port: 10900
+
+management:
+  security:
+    enabled: false  # 关闭验证
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: local
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://192.168.14.97/cibei/cibei-config-center.git     # 配置git仓库的地址
+          search-paths: config-repo                         # git仓库地址下的相对地址，可以配置多个，用,分割。
+          username: wangfei                                     # git仓库的账号
+          password: Icibei123                                 # git仓库的密码
+
+#访问服务注册中心管理页面需要加密码
+register-visite-name: @register-visite-name@
+register-visite-passwd: @register-visite-passwd@
+

@@ -1,0 +1,41 @@
+server:
+  port: 10401
+  
+spring:
+  redis:
+    host: 192.168.14.97
+    port: 6379
+    password:
+  rabbitmq:
+    addresses: 192.168.14.98
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:oracle:thin:@10.0.116.8:1521:jdedbdev
+    username: xbcy
+    password: xibeicy
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    druid:
+      initialSize: 2
+      minIdle: 2
+      maxActive: 30
+      ######Druid监控配置######
+      WebStatFilter:
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      StatViewServlet:
+        loginUsername: druid
+        loginPassword: druid
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${register-visite-name}:${register-visite-passwd}@192.168.14.98:10001/eureka/
+
+logging:
+  level:
+    root: INFO
+    com.iciyun: INFO
+  file: /var/data/log/cibei-order.log

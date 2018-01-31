@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+    <artifactId>config-center-ymls</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>config-center-ymls</name>
+    <description>配置中心父工程</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.9.RELEASE</version>
+    </parent>
+
+    <modules>
+        <module>convert-config</module>
+    </modules>
+
+    <properties>
+        <register-visite-name>eureka</register-visite-name>
+        <register-visite-passwd>123321</register-visite-passwd>
+
+        <register-name-eureka>eureka-server</register-name-eureka>
+        <service-name-gate>cibei-gateway</service-name-gate>
+        <service-name-auth>auth-service</service-name-auth>
+        <service-name-data>data-service</service-name-data>
+        <service-name-order>order-service</service-name-order>
+        <service-name-inv>inv-service</service-name-inv>
+        <service-name-report>report-service</service-name-report>
+        <service-name-scheduler>scheduler-service</service-name-scheduler>
+        <service-name-log>log-service</service-name-log>
+
+        <java.version>1.8</java.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <name>Iciyun Releases</name>
+            <url>http://192.168.14.97:8888/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>icibei-releases</id>
+            <name>Iciyun Releases</name>
+            <url>http://192.168.14.97:8888/repository/maven-releases/</url>
+            <releases>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>icibei-snapshots</id>
+            <name>Nexus Snapshots</name>
+            <url>http://192.168.14.97:8888/repository/maven-iciyun/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>icibei-releases</id>
+            <name>Internal Releases</name>
+            <url>http://192.168.14.97:8888/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>icibei-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.14.97:8888/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>default-resources</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>target/classes</outputDirectory>
+                                <useDefaultDelimiters>false</useDefaultDelimiters>
+                                <delimiters>
+                                    <delimiter>@</delimiter>
+                                </delimiters>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/java</directory>
+                                        <includes>
+                                            <include>**/*.xml</include>
+                                        </includes>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                    <resource>
+                                        <directory>src/main/resources</directory>
+                                        <includes>
+                                            <include>**</include>
+                                        </includes>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                    <resource>
+                                        <directory>src/main/resources/</directory>
+                                        <filtering>true</filtering>
+                                        <includes>
+                                            <include>**/*.yml</include>
+                                            <include>**/*.properties</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+</project>

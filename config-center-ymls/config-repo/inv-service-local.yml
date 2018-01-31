@@ -1,0 +1,33 @@
+server:
+  port: 10501
+ 
+cifile:
+  export-tpl-dir: /var/data/templates/export/inv
+  
+spring:
+  redis:
+    host: 192.168.14.97
+    port: 6379
+    password:
+  rabbitmq:
+    addresses: 192.168.14.97
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+      url: jdbc:mysql://192.168.14.97:3306/cbei_inv?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: 123456
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${register-visite-name}:${register-visite-passwd}@localhost:10001/eureka/
+
+logging:
+  level:
+    root: INFO
+    com.iciyun: INFO
+  file: /var/data/log/cibei-inv.log
